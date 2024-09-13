@@ -1,0 +1,28 @@
+Create table team(tid, country, totalmatch, win,loss). Insert 8 team detail. Create trigger to verify totalmatch is not 0. export data into csv file. Read file using reader object and print record with winning %age.
+sqlite> .open match.db
+sqlite> create table team3
+   ...> (tid, country, totalmatch, win,loss);
+sqlite> insert into team3 values(1, 'USA', 10, 7, 3);
+sqlite> insert into team3 values(2, 'Canada', 12, 8, 4);
+sqlite> insert into team3 values(3, 'Mexico', 11, 6, 5);
+sqlite> insert into team3 values(4, 'Brazil', 13, 9, 4);
+sqlite> insert into team3 values(5, 'Argentina', 10, 5, 5);
+sqlite> insert into team3 values(6, 'Germany', 12, 8, 4);
+sqlite> insert into team3 values(7, 'France', 11, 7, 4);
+sqlite> insert into team3 values(8, 'Italy', 10, 6, 4);
+sqlite> ("create trigger verify_totalmatch BEFORE INSERT  ON team\
+"  ...> begin\
+"  ...>          select case\
+"  ...>          when new.totalmatch = 0 THEN\
+"  ...>         raise(abort,'Total matches cannot be 0')\
+"  ...>          end;\
+"  ...>         end;\
+"  ...>  ")
+   ...> ;
+Parse error: near "(": syntax error
+  ("create trigger verify_totalmatch BEFORE INSERT  ON team\ begin\   select cas
+  ^--- error here
+sqlite> .mode column
+sqlite> .mode csv
+sqlite> .output D:/23BCA296/sqlite-tools-win-x64-3460000/csv/team3.csv
+sqlite> select * from team3;
